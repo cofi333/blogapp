@@ -2,6 +2,7 @@
 import { GitHubIcon } from "../assets/icons";
 import Image from "next/image";
 import { login } from "@/auth/actions";
+import { toast } from "sonner";
 
 const LoginButton = () => {
     return (

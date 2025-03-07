@@ -11,7 +11,7 @@ const DeleteButton = () => {
             type="submit"
             disabled={pending}
         >
-            {pending ? "Loading..." : "Delete"}
+            {pending ? "Deleting..." : "Delete"}
         </Button>
     );
 };
