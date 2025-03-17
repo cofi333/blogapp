@@ -3,6 +3,9 @@ import { eq, ilike, or } from "drizzle-orm";
 import { db } from "..";
 import { posts, users } from "../schema";
 import { TInsertPost } from "@/lib/types";
+import { revalidateTag } from "next/cache";
+import { unstable_cache } from "next/cache";
+
 
 export const getPosts = async (query: string) => {
     try {
@@ -23,6 +26,10 @@ export const getPosts = async (query: string) => {
         return { data: [], success: false, message:"Something went wrong while fetching posts. Please try again" }
     }
 };
+
+export const getPostsData = unstable_cache(async (query: string) => getPosts(query), [], {
+    tags: ["posts"],
+});
 
 export const getPostById = async (id: string) => {
     try {
@@ -72,4 +79,10 @@ export const insertPost = async(data: TInsertPost) => {
             message: "Something went wrong. Please try again"
         }
     }
+}
+
+// revalidate data
+
+export const revalidateAllPosts = async() => {
+    revalidateTag("posts")
 }

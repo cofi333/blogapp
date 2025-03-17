@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { TInsertPost } from "@/lib/types";
-import { insertPost } from "@/db/actions/posts";
+import { insertPost, revalidateAllPosts } from "@/db/actions/posts";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CREATE_POST_SCHEMA } from "@/lib/constants";
 import { toast } from "sonner";
@@ -22,6 +22,7 @@ const CreatePostForm = ({ userId }: { userId: string }) => {
 
     const onSubmit = async (data: TInsertPost) => {
         const response = await insertPost(data);
+        await revalidateAllPosts();
         toast(response.message);
         reset();
     };

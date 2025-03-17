@@ -10,7 +10,7 @@ import {
 } from "@/app/components/ui/dialog";
 import DeleteButton from "./DeleteButton";
 import { Button } from "./ui/button";
-import { deletePost } from "@/db/actions/posts";
+import { deletePost, revalidateAllPosts } from "@/db/actions/posts";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -20,6 +20,7 @@ const DeleteModal = ({ postId }: { postId: string }) => {
     const handleDelete = async () => {
         const response = await deletePost(postId);
         if (response.success) {
+            await revalidateAllPosts();
             router.push("/home");
             toast(response.message);
         }

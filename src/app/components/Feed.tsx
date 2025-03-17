@@ -1,9 +1,9 @@
-import { getPosts } from "@/db/actions/posts";
+import { getPostsData } from "@/db/actions/posts";
 import { TPost, TGetPosts, TPostsResponse } from "@/lib/types";
 import PostTeaser from "./PostTeaser";
 
 const Feed = async ({ query }: TGetPosts) => {
-    const posts: TPostsResponse = await getPosts(query);
+    const posts: TPostsResponse = await getPostsData(query);
 
     if (!posts.success)
         return <p className="text-white mt-12">{posts.message}</p>;
