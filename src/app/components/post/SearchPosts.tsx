@@ -1,6 +1,6 @@
 import Form from "next/form";
 import Image from "next/image";
-import { SearchIcon } from "../assets/icons";
+import { SearchIcon } from "../../assets/icons";
 
 const SearchPosts = ({ query }: { query: string }) => {
     return (

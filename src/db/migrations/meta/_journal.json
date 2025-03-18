@@ -15,6 +15,20 @@
       "when": 1741104310410,
       "tag": "0001_left_dreaming_celestial",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1742235838155,
+      "tag": "0002_old_luckman",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1742318518551,
+      "tag": "0003_yummy_proudstar",
+      "breakpoints": true
     }
   ]
 }

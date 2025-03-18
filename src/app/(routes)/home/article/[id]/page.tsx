@@ -1,12 +1,11 @@
-import { Navbar, DeleteModal } from "@/app/components";
+import { Navbar, DeleteModal, Comments, Author } from "@/app/components";
 import { auth } from "@/auth/auth";
 import { getPostById } from "@/db/actions/posts";
-import { TPostsResponse } from "@/lib/types";
-import Image from "next/image";
+import { TPostPage } from "@/lib/types";
 
 const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = await params;
-    const post: TPostsResponse = await getPostById(id);
+    const post: TPostPage = await getPostById(id);
     const session = await auth();
 
     if (!post.success)
@@ -15,33 +14,23 @@ const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     return (
         <>
             <Navbar isShowedSearch={false} />
-            {session?.user?.id === post.data![0].authorId && (
+            {session?.user?.id === post.data!.authorId && (
                 <DeleteModal postId={id} />
             )}
-            <h1 className="text-neutral-300 text-4xl mt-6">
-                {post.data![0].title}
+            <h1 className="text-neutral-300 text-4xl mt-6 mb-4">
+                {post.data!.title}
             </h1>
-            <div className="flex gap-2 items-center mt-4">
-                <Image
-                    src={
-                        post.data![0].authorImage ??
-                        "https://placehold.co/40x40.png"
-                    }
-                    alt="Author image"
-                    width={30}
-                    height={30}
-                    className="rounded-full"
-                />
-                <span className="text-neutral-300">
-                    {post.data![0].authorName}
-                </span>
-            </div>
+            <Author
+                authorImage={post.data!.authorImage}
+                authorName={post.data!.authorName}
+            />
             <p className="text-neutral-400 my-6 text-lg">
-                {post.data![0].content}
+                {post.data!.content}
             </p>
             <p className="text-neutral-300 text-lg text-right">{`Published: ${new Date(
-                post.data![0].createdAt
+                post.data!.createdAt
             ).toLocaleDateString()}`}</p>
+            <Comments postId={id} />
         </>
     );
 };

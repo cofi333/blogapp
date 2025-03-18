@@ -22,6 +22,12 @@ export type TPostsResponse = {
     message?: string;
 }
 
+export type TPostPage = {
+    data?: TPost;
+    success: boolean;
+    message?: string;
+}
+
 
 export type TNavigationLink = {
     id: number;
@@ -39,3 +45,48 @@ export type TError = {
     error: string;
 }
 
+export type TComment = {
+    id: string;
+    content: string;
+    authorName: string;
+    authorImage: string | null;
+    createdAt: string | Date
+}
+
+export type TAuthorProps = {
+    authorImage?: string | null;
+    authorName?: string | null;
+}
+
+export type TCommentUpdateData = {
+    newComment: string;
+    id: string;
+}
+
+export type TAddNewCommentProps = {
+    authorImage?: string | null;
+    authorId?: string;
+    postId: string;
+}
+
+export type TAddNewCommentData = {
+    author: string;
+    post: string;
+    content: string;
+}
+
+// db schema types
+
+export type TCommentDB = {
+    id: string;
+    author: string;
+    postId: string;
+    content: string;
+    createdAt: Date;
+}
+
+export type TUpdateCommentPromise = {
+    data?: TCommentDB; 
+    success: boolean; 
+    message: string
+}

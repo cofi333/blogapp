@@ -1,7 +1,7 @@
 "use server"
 import { eq, ilike, or } from "drizzle-orm";
 import { db } from "..";
-import { posts, users } from "../schema";
+import { comments, posts, users } from "../schema";
 import { TInsertPost } from "@/lib/types";
 import { revalidateTag } from "next/cache";
 import { unstable_cache } from "next/cache";
@@ -43,9 +43,9 @@ export const getPostById = async (id: string) => {
             createdAt: posts.createdAt,
         }).from(posts).where(eq(posts.id, id)).innerJoin(users, eq(posts.author, users.id))
 
-        return { data: data, success: true }
+        return { data: data[0], success: true }
     } catch(error) {
-        return { data: [], success: false, message:"Something went wrong. Please try again" }
+        return { success: false, message:"Something went wrong. Please try again" }
     }
 }
 
@@ -69,7 +69,8 @@ export const insertPost = async(data: TInsertPost) => {
     try{
         const {authorId, title, content} = data;
         await db.insert(posts).values({author: authorId, title: title, content: content})
-         return {
+
+        return {
             success: true,
             message: "You successfully added a new post"
         }
@@ -81,8 +82,7 @@ export const insertPost = async(data: TInsertPost) => {
     }
 }
 
-// revalidate data
-
-export const revalidateAllPosts = async() => {
+//revalidating posts
+export const revalidatePosts = async () => {
     revalidateTag("posts")
 }

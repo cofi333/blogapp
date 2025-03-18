@@ -1,6 +1,6 @@
 import { getPostsData } from "@/db/actions/posts";
 import { TPost, TGetPosts, TPostsResponse } from "@/lib/types";
-import PostTeaser from "./PostTeaser";
+import PostTeaser from "./post/PostTeaser";
 
 const Feed = async ({ query }: TGetPosts) => {
     const posts: TPostsResponse = await getPostsData(query);

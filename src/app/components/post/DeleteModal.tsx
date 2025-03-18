@@ -8,9 +8,9 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/app/components/ui/dialog";
-import DeleteButton from "./DeleteButton";
-import { Button } from "./ui/button";
-import { deletePost, revalidateAllPosts } from "@/db/actions/posts";
+import DeleteButton from "../DeleteButton";
+import { Button } from "../ui/button";
+import { deletePost, revalidatePosts } from "@/db/actions/posts";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -19,8 +19,8 @@ const DeleteModal = ({ postId }: { postId: string }) => {
 
     const handleDelete = async () => {
         const response = await deletePost(postId);
+        await revalidatePosts();
         if (response.success) {
-            await revalidateAllPosts();
             router.push("/home");
             toast(response.message);
         }
