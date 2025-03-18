@@ -18,8 +18,13 @@ import { Button } from "../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UPDATE_COMMENT_SCHEMA } from "@/lib/constants";
 
-const Comment: React.FC<{ data: TComment }> = ({ data }) => {
-    const { content, authorName, authorImage, id } = data;
+const Comment: React.FC<{ data: TComment; sessionId?: string }> = ({
+    data,
+    sessionId,
+}) => {
+    const { content, authorName, authorImage, id, authorId } = data;
+
+    const isShowedButtons = sessionId === authorId;
 
     const [update, setUpdate] = useState<boolean>(false);
     const {
@@ -64,26 +69,28 @@ const Comment: React.FC<{ data: TComment }> = ({ data }) => {
                         {authorName}
                     </span>
                 </div>
-                <div className="flex gap-4">
-                    <Image
-                        src={EditIcon}
-                        alt="Edit icon"
-                        width={25}
-                        height={25}
-                        className="max-h-[25px] hover:cursor-pointer hover:opacity-80"
-                        onClick={() => {
-                            setUpdate((prev) => !prev);
-                        }}
-                    />
-                    <Image
-                        src={DeleteIcon}
-                        alt="Edit icon"
-                        width={25}
-                        height={25}
-                        className="max-h-[25px] hover:cursor-pointer hover:opacity-80"
-                        onClick={onDelete}
-                    />
-                </div>
+                {isShowedButtons && (
+                    <div className="flex gap-4">
+                        <Image
+                            src={EditIcon}
+                            alt="Edit icon"
+                            width={25}
+                            height={25}
+                            className="max-h-[25px] hover:cursor-pointer hover:opacity-80"
+                            onClick={() => {
+                                setUpdate((prev) => !prev);
+                            }}
+                        />
+                        <Image
+                            src={DeleteIcon}
+                            alt="Edit icon"
+                            width={25}
+                            height={25}
+                            className="max-h-[25px] hover:cursor-pointer hover:opacity-80"
+                            onClick={onDelete}
+                        />
+                    </div>
+                )}
             </div>
             <div>
                 {update ? (

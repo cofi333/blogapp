@@ -11,6 +11,7 @@ export const getCommentsByPost = async(id: string) => {
         const data = await db.select({
             id: comments.id,
             content: comments.content,
+            authorId: users.id,
             authorName: users.name,
             authorImage: users.image,
             createdAt: comments.createdAt   

@@ -25,7 +25,11 @@ const Comments = async ({ postId }: { postId: string }) => {
             />
             {comments.success &&
                 comments.data!.map((comment: TComment) => (
-                    <Comment data={comment} key={comment.id} />
+                    <Comment
+                        data={comment}
+                        key={comment.id}
+                        sessionId={session?.user?.id}
+                    />
                 ))}
         </div>
     );

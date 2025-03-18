@@ -48,9 +48,10 @@ export type TError = {
 export type TComment = {
     id: string;
     content: string;
+    authorId: string;
     authorName: string;
     authorImage: string | null;
-    createdAt: string | Date
+    createdAt: string | Date;
 }
 
 export type TAuthorProps = {
