@@ -22,7 +22,10 @@ const Comments = async ({ postId }: { postId: string }) => {
       />
       {comments.success &&
         comments.data!.map(async (comment: TComment) => {
-          const reactions = await getReactions(comment.id, session?.user?.id!);
+          const reactions = await getReactions(
+            comment.id,
+            session?.user?.id as string,
+          );
           return (
             <Comment
               data={comment}

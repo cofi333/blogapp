@@ -1,6 +1,5 @@
 'use client';
 import {
-  TComment,
   TCommentProps,
   TCommentUpdateData,
   TUpdateCommentPromise,
@@ -25,9 +24,9 @@ const Comment: React.FC<TCommentProps> = ({ data, sessionId, reactions }) => {
 
   const isShowedButtons = sessionId === authorId;
 
-  console.log(data.lastEdited);
-
   const [update, setUpdate] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
@@ -49,10 +48,12 @@ const Comment: React.FC<TCommentProps> = ({ data, sessionId, reactions }) => {
   };
 
   const onDelete = async () => {
+    setIsDeleting(true);
     const response = await deleteCommentById(id);
     await revalidateComments();
 
     toast.message(response.message);
+    setIsDeleting(false);
   };
 
   return (
@@ -77,24 +78,28 @@ const Comment: React.FC<TCommentProps> = ({ data, sessionId, reactions }) => {
         </div>
         {isShowedButtons && (
           <div className="flex gap-4">
-            <Image
-              src={EditIcon}
-              alt="Edit icon"
-              width={25}
-              height={25}
-              className="max-h-[25px] hover:cursor-pointer hover:opacity-80"
+            <Button
               onClick={() => {
                 setUpdate((prev) => !prev);
               }}
-            />
-            <Image
-              src={DeleteIcon}
-              alt="Edit icon"
-              width={25}
-              height={25}
-              className="max-h-[25px] hover:cursor-pointer hover:opacity-80"
-              onClick={onDelete}
-            />
+            >
+              <Image
+                src={EditIcon}
+                alt="Edit icon"
+                width={20}
+                height={20}
+                className="max-h-[25px] hover:cursor-pointer hover:opacity-80"
+              />
+            </Button>
+            <Button onClick={onDelete} disabled={isDeleting}>
+              <Image
+                src={DeleteIcon}
+                alt="Edit icon"
+                width={20}
+                height={20}
+                className="max-h-[25px] hover:cursor-pointer hover:opacity-80"
+              />
+            </Button>
           </div>
         )}
       </div>

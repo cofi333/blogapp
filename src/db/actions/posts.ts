@@ -1,7 +1,7 @@
 'use server';
 import { eq, ilike, or } from 'drizzle-orm';
 import { db } from '..';
-import { comments, posts, users } from '../schema';
+import { posts, users } from '../schema';
 import { TInsertPost } from '@/lib/types';
 import { revalidateTag } from 'next/cache';
 import { unstable_cache } from 'next/cache';
@@ -27,10 +27,9 @@ export const getPosts = async (query: string) => {
       );
 
     return { data: data, success: true };
-  } catch (error) {
+  } catch {
     return {
       data: [],
-
       success: false,
       message: 'Something went wrong while fetching posts. Please try again',
     };
@@ -62,7 +61,7 @@ export const getPostById = async (id: string) => {
       .innerJoin(users, eq(posts.author, users.id));
 
     return { data: data[0], success: true };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: 'Something went wrong. Please try again',
@@ -78,7 +77,7 @@ export const deletePost = async (id: string) => {
       success: true,
       message: 'You successfuly deleted your post',
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: 'Something went wrong. Please try again',
@@ -97,7 +96,7 @@ export const insertPost = async (data: TInsertPost) => {
       success: true,
       message: 'You successfully added a new post',
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: 'Something went wrong. Please try again',

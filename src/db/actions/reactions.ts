@@ -18,7 +18,7 @@ export const checkReactionStatus = async (
       success: true,
       data: data[0] || null,
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: 'Something went wrong. Please try again',
@@ -41,7 +41,7 @@ export const updateReactionStatus = async (
     return {
       success: true,
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: 'Something went wrong. Please try again',
@@ -67,8 +67,7 @@ export const insertReaction = async (
     return {
       success: true,
     };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return {
       success: false,
       message: 'Something went wrong. Please try again',
@@ -116,7 +115,7 @@ export const getReactions = async (commentId: string, userId: string) => {
         commentId: commentId,
       },
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: 'Something went wrong. Please try again',

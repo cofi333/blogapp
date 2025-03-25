@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CREATE_POST_SCHEMA } from '@/lib/constants';
 import { toast } from 'sonner';
 
-const CreatePostForm = ({ userId }: { userId: string }) => {
+const CreatePostForm = ({ userId }: { userId?: string }) => {
   const {
     register,
     reset,

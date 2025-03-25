@@ -3,7 +3,7 @@ import { Feed, Navbar } from '@/app/components';
 const HomePage = async ({
   searchParams,
 }: {
-  searchParams?: { query?: string; page?: string };
+  searchParams?: Promise<{ query?: string; page?: string }> | undefined;
 }) => {
   const query = (await searchParams!).query ?? '';
 

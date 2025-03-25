@@ -39,7 +39,7 @@ const ReactionButton = ({
         setIsReacted(response.data.isReacted);
       }
     });
-  }, []);
+  }, [commentId]);
 
   return (
     <Button

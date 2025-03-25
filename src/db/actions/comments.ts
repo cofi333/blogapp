@@ -27,7 +27,7 @@ export const getCommentsByPost = async (id: string) => {
       .where(eq(comments.postId, id));
 
     return { data: data, success: true };
-  } catch (error) {
+  } catch {
     return {
       data: [],
       success: false,
@@ -59,7 +59,7 @@ export const updateCommentById = async (
       success: true,
       message: 'You successfully updated your comment',
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message:
@@ -76,7 +76,7 @@ export const deleteCommentById = async (id: string) => {
       success: true,
       message: 'You successfuly deleted your comment',
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: 'Something went wrong. Please try again',
@@ -96,7 +96,7 @@ export const addNewComment = async (data: TAddNewCommentData) => {
       success: true,
       message: 'You successfully added a new comment',
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       message: 'Something went wrong. Please try again',

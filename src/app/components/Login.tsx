@@ -9,8 +9,8 @@ const Login = () => {
       </div>
       <p className="text-2xl">
         Explore our latest posts, join the conversation, and feel free to share
-        your thoughts. Your journey with us starts now—let's dive into the world
-        of endless possibilities!
+        your thoughts. Your journey with us starts now—let&apos;s dive into the
+        world of endless possibilities!
       </p>
     </div>
   );

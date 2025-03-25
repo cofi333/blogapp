@@ -9,7 +9,7 @@ const CreatePost = async () => {
       <div className="my-12">
         <h2 className="text-4xl text-neutral-300">Create a post</h2>
       </div>
-      <CreatePostForm userId={session?.user?.id!} />
+      <CreatePostForm userId={session?.user?.id} />
     </div>
   );
 };
