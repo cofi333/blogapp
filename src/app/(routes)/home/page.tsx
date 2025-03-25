@@ -1,18 +1,18 @@
-import { Feed, Navbar } from "@/app/components";
+import { Feed, Navbar } from '@/app/components';
 
 const HomePage = async ({
-    searchParams,
+  searchParams,
 }: {
-    searchParams?: { query?: string; page?: string };
+  searchParams?: { query?: string; page?: string };
 }) => {
-    const query = (await searchParams!).query ?? "";
+  const query = (await searchParams!).query ?? '';
 
-    return (
-        <div>
-            <Navbar query={query} isShowedSearch={true} />
-            <Feed query={query} />
-        </div>
-    );
+  return (
+    <div>
+      <Navbar query={query} isShowedSearch={true} />
+      <Feed query={query} />
+    </div>
+  );
 };
 
 export default HomePage;
