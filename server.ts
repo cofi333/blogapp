@@ -19,7 +19,7 @@ app.prepare().then(() => {
         socket.on("reaction", async (data) => {
             const reaction = data.type === "like" ? 1 : 0;
             await insertReaction(data.userId, data.commentId, reaction);
-            const updatedData = await getReactions(data.commentId);
+            const updatedData = await getReactions(data.commentId, data.userId);
             io.emit("reaction-server", updatedData);        
         });
     });

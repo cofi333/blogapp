@@ -54,7 +54,7 @@ export const insertReaction = async(userId: string, commentId: string, reaction:
     }
 };
 
-export const getReactions = async (commentId: string) => {
+export const getReactions = async (commentId: string, userId: string) => {
     try{
         const queryLikes = await db.select({
             likes: count()
@@ -64,14 +64,18 @@ export const getReactions = async (commentId: string) => {
             dislikes: count()
         }).from(reactions).where(and(eq(reactions.commentId, commentId), eq(reactions.reaction, 0)))
 
+        const queryStatus = await db.select().from(reactions).where(and(eq(reactions.commentId, commentId), eq(reactions.userId, userId)))
+
         const likes = queryLikes[0]?.likes || 0;
         const dislikes = queryDislikes[0]?.dislikes || 0
+        const isReacted = queryStatus[0].reaction
 
         return {
             success: true,
             data: {
                 likes: likes,
                 dislikes: dislikes,
+                isReacted: isReacted,
                 commentId: commentId,
             }
         }

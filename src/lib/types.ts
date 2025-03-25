@@ -81,6 +81,7 @@ export type TReactions = {
     data?: {
         likes: number;
         dislikes: number;
+        isReacted: number | null;
         commentId: string;
         message?: string;
     }
@@ -121,5 +122,6 @@ export type TGetReactions = {
         likes: number;
         dislikes: number;
         commentId: string;
+        isReacted: number | null;
     };
 } 

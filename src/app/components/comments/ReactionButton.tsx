@@ -16,6 +16,12 @@ const ReactionButton = ({
     const [dislikes, setDislikes] = useState<number>(
         reactions.data?.dislikes || 0
     );
+    const [isReacted, setIsReacted] = useState<number | null>(
+        reactions.data?.isReacted ?? null
+    );
+
+    const isLiked = isReacted === 1 && type === "like";
+    const isDisliked = isReacted === 0 && type === "dislike";
 
     const onSubmit = async () => {
         socket.emit("reaction", {
@@ -30,12 +36,19 @@ const ReactionButton = ({
             if (response?.data?.commentId === commentId) {
                 setLikes(response.data.likes);
                 setDislikes(response.data.dislikes);
+                setIsReacted(response.data.isReacted);
             }
         });
     }, []);
 
     return (
-        <Button variant="default" onClick={onSubmit}>
+        <Button
+            variant="default"
+            onClick={onSubmit}
+            className={`${
+                isLiked ? "bg-blue-800" : isDisliked ? "bg-red-800" : ""
+            } p-2`}
+        >
             <span className="text-md">
                 {type === "like" ? likes : dislikes}
             </span>
