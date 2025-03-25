@@ -25,6 +25,8 @@ const Comment: React.FC<TCommentProps> = ({ data, sessionId, reactions }) => {
 
   const isShowedButtons = sessionId === authorId;
 
+  console.log(data.lastEdited);
+
   const [update, setUpdate] = useState<boolean>(false);
   const {
     register,
@@ -67,6 +69,11 @@ const Comment: React.FC<TCommentProps> = ({ data, sessionId, reactions }) => {
           <span className="text-neutral-400 transition-all duration-150 group-hover:text-white">
             {authorName}
           </span>
+          {data.lastEdited && (
+            <span className="ml-3 text-sm text-neutral-500 italic">
+              Edited on: {new Date(data.lastEdited!).toLocaleString('de-DE')}
+            </span>
+          )}
         </div>
         {isShowedButtons && (
           <div className="flex gap-4">

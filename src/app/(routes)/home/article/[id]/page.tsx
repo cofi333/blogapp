@@ -26,7 +26,7 @@ const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
       </p>
       <p className="text-right text-lg text-neutral-300">{`Published: ${new Date(
         post.data!.createdAt,
-      ).toLocaleDateString()}`}</p>
+      ).toLocaleDateString('de-DE')}`}</p>
       <Comments postId={id} />
     </>
   );

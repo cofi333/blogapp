@@ -20,6 +20,7 @@ export const getCommentsByPost = async (id: string) => {
         authorName: users.name,
         authorImage: users.image,
         createdAt: comments.createdAt,
+        lastEdited: comments.lastEdited,
       })
       .from(comments)
       .innerJoin(users, eq(comments.author, users.id))
@@ -49,7 +50,7 @@ export const updateCommentById = async (
   try {
     const data = await db
       .update(comments)
-      .set({ content: updateData.newComment })
+      .set({ content: updateData.newComment, lastEdited: new Date() })
       .where(eq(comments.id, updateData.id))
       .returning();
 

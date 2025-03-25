@@ -50,6 +50,7 @@ export type TComment = {
   authorId: string;
   authorName: string;
   authorImage: string | null;
+  lastEdited?: Date | null;
   createdAt: string | Date;
 };
 
