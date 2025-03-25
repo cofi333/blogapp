@@ -76,6 +76,29 @@ export type TAddNewCommentData = {
     content: string;
 }
 
+export type TReactions = {
+    success: boolean,
+    data?: {
+        likes: number;
+        dislikes: number;
+        commentId: string;
+        message?: string;
+    }
+}
+
+export type TCommentProps = {
+    data: TComment;
+    sessionId?: string;
+    reactions: TReactions;
+}
+
+export type TReactionButtonProps = {
+    type: "like" | "dislike";
+    userId: string;
+    reactions: TReactions;
+    commentId: string;
+}
+
 // db schema types
 
 export type TCommentDB = {
@@ -91,3 +114,12 @@ export type TUpdateCommentPromise = {
     success: boolean; 
     message: string
 }
+
+export type TGetReactions = {
+    success: boolean;
+    data: {
+        likes: number;
+        dislikes: number;
+        commentId: string;
+    };
+} 

@@ -14,7 +14,7 @@ export const getCommentsByPost = async(id: string) => {
             authorId: users.id,
             authorName: users.name,
             authorImage: users.image,
-            createdAt: comments.createdAt   
+            createdAt: comments.createdAt
         }).from(comments).innerJoin(users, eq(comments.author, users.id)).where(eq(comments.postId, id))
 
         return { data: data, success: true }

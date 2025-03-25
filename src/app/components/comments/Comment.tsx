@@ -1,6 +1,7 @@
 "use client";
 import {
     TComment,
+    TCommentProps,
     TCommentUpdateData,
     TUpdateCommentPromise,
 } from "@/lib/types";
@@ -17,11 +18,9 @@ import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UPDATE_COMMENT_SCHEMA } from "@/lib/constants";
+import ReactionButton from "./ReactionButton";
 
-const Comment: React.FC<{ data: TComment; sessionId?: string }> = ({
-    data,
-    sessionId,
-}) => {
+const Comment: React.FC<TCommentProps> = ({ data, sessionId, reactions }) => {
     const { content, authorName, authorImage, id, authorId } = data;
 
     const isShowedButtons = sessionId === authorId;
@@ -113,10 +112,24 @@ const Comment: React.FC<{ data: TComment; sessionId?: string }> = ({
                         </Button>
                     </form>
                 ) : (
-                    <p className="text-neutral-400 mt-4">
+                    <p className="text-neutral-400 mt-4 break-words">
                         {getValues("newComment")}
                     </p>
                 )}
+                <div className="mt-6 flex gap-4">
+                    <ReactionButton
+                        type="like"
+                        userId={sessionId!}
+                        commentId={id}
+                        reactions={reactions}
+                    />
+                    <ReactionButton
+                        type="dislike"
+                        userId={sessionId!}
+                        commentId={id}
+                        reactions={reactions}
+                    />
+                </div>
             </div>
         </div>
     );

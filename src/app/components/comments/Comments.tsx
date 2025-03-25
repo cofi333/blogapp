@@ -3,6 +3,7 @@ import { TComment } from "@/lib/types";
 import { AddNewComment, Comment } from "@/app/components";
 import { pluralize } from "@/lib/utils";
 import { auth } from "@/auth/auth";
+import { getReactions } from "@/db/actions/reactions";
 
 const Comments = async ({ postId }: { postId: string }) => {
     const comments = await getCommentsData(postId);
@@ -24,13 +25,17 @@ const Comments = async ({ postId }: { postId: string }) => {
                 postId={postId}
             />
             {comments.success &&
-                comments.data!.map((comment: TComment) => (
-                    <Comment
-                        data={comment}
-                        key={comment.id}
-                        sessionId={session?.user?.id}
-                    />
-                ))}
+                comments.data!.map(async (comment: TComment) => {
+                    const reactions = await getReactions(comment.id);
+                    return (
+                        <Comment
+                            data={comment}
+                            key={comment.id}
+                            sessionId={session?.user?.id}
+                            reactions={reactions}
+                        />
+                    );
+                })}
         </div>
     );
 };

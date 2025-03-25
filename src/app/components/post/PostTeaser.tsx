@@ -21,7 +21,7 @@ const PostTeaser: React.FC<{ data: TPost }> = ({ data }) => {
                     {new Date(data.createdAt).toLocaleDateString()}
                 </span>
             </div>
-            <p className="text-neutral-500 mt-6 group-hover:text-white transition-all duration-150 ease-in line-clamp-4">
+            <p className="text-neutral-500 mt-6 group-hover:text-white transition-all duration-150 ease-in line-clamp-4 break-words">
                 {data.content}
             </p>
         </Link>

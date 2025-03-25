@@ -14,7 +14,7 @@ const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     return (
         <>
             <Navbar isShowedSearch={false} />
-            {session?.user?.id === post.data!.authorId && (
+            {session?.user?.id === post.data?.authorId && (
                 <DeleteModal postId={id} />
             )}
             <h1 className="text-neutral-300 text-4xl mt-6 mb-4">
@@ -24,7 +24,7 @@ const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
                 authorImage={post.data!.authorImage}
                 authorName={post.data!.authorName}
             />
-            <p className="text-neutral-400 my-6 text-lg">
+            <p className="text-neutral-400 my-6 text-lg break-words">
                 {post.data!.content}
             </p>
             <p className="text-neutral-300 text-lg text-right">{`Published: ${new Date(
